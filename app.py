@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, make_response
 import pdfkit
-import os
 
 app = Flask(__name__)
 
@@ -30,15 +29,13 @@ def generar_pdf():
         'no-outline': None,
     }
 
-    # ✅ Esta parte es clave para Render
-    config = pdfkit.configuration(wkhtmltopdf=os.path.join(os.getcwd(), 'bin/wkhtmltopdf'))
-    pdf = pdfkit.from_string(html, False, options=options, configuration=config)
+    # Usar wkhtmltopdf instalado globalmente, sin configuración personalizada
+    pdf = pdfkit.from_string(html, False, options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=clientes.pdf'
     return response
-
 
 if __name__ == '__main__':
     app.run(debug=True)
