@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, make_response
 import pdfkit
+import os
 
 app = Flask(__name__)
 
@@ -15,9 +16,11 @@ def index():
 
 @app.route('/pdf')
 def generar_pdf():
-    modelo_url = url_for('static', filename='img/sistema.jpg', _external=True)
-    html = render_template('pdf/cliente_pdf.html', clientes=clientes, modelo_url=modelo_url)
+    # Ruta absoluta a la imagen en el sistema de archivos
+    modelo_path = os.path.join(app.root_path, 'static', 'img', 'modelo_pdf.jpg')
+    modelo_url = 'file://' + modelo_path  # Ruta local para wkhtmltopdf
 
+    html = render_template('pdf/cliente_pdf.html', clientes=clientes, modelo_url=modelo_url)
     options = {
         'enable-local-file-access': '',
         'page-size': 'Letter',
