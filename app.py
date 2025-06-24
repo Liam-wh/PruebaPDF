@@ -15,7 +15,7 @@ def index():
 
 @app.route('/pdf')
 def generar_pdf():
-    modelo_url = url_for('static', filename='img/modelo_pdf.jpg', _external=True)
+    modelo_url = url_for('static', filename='img/sistema.jpg', _external=True)
     html = render_template('pdf/cliente_pdf.html', clientes=clientes, modelo_url=modelo_url)
 
     options = {
@@ -26,7 +26,6 @@ def generar_pdf():
         'margin-bottom': '0mm',
         'margin-left': '0mm',
         'margin-right': '0mm',
-        'no-images': '',
         'no-outline': None,
     }
 
