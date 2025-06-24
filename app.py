@@ -30,17 +30,15 @@ def generar_pdf():
         'no-outline': None,
     }
 
-    # Si usas wkhtmltopdf portable (bin/wkhtmltopdf):
-    # config = pdfkit.configuration(wkhtmltopdf=os.path.join(os.getcwd(), 'bin/wkhtmltopdf'))
-    # pdf = pdfkit.from_string(html, False, options=options, configuration=config)
-
-    # Si wkhtmltopdf está instalado globalmente:
-    pdf = pdfkit.from_string(html, False, options=options)
+    # ✅ Esta parte es clave para Render
+    config = pdfkit.configuration(wkhtmltopdf=os.path.join(os.getcwd(), 'bin/wkhtmltopdf'))
+    pdf = pdfkit.from_string(html, False, options=options, configuration=config)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=clientes.pdf'
     return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)
