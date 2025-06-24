@@ -26,6 +26,7 @@ def generar_pdf():
         'margin-bottom': '0mm',
         'margin-left': '0mm',
         'margin-right': '0mm',
+        'no-images': '',
         'no-outline': None,
     }
 
